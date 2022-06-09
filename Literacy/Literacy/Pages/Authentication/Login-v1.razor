@@ -1,0 +1,49 @@
+﻿@page "/pages/authentication/Login-v1"
+@layout EmptyLayout
+
+@if (!_alert)
+{
+    <div style="height:70px;"></div>
+}
+
+<MAlert @bind-Value="_alert"
+        Dismissible
+        Color="cyan"
+        Border="Borders.Left"
+        Elevation="2"
+        ColoredBorder
+        Icon="@("mdi-microsoft")"
+        Type="AlertTypes.Success">
+    @message
+</MAlert>
+
+
+<div class="d-flex align-center" style="height:calc(100% - 96px)">
+    <Literacy.Pages.Authentication.Components.Login OnLogin="Login" ReBack="Back"></Literacy.Pages.Authentication.Components.Login>
+</div>
+
+@*<MFooter Padless Height=96 Style="background:transparent;">
+    <MRow Justify="JustifyTypes.Center">
+        <a href="https://github.com/CambalucClub/" target="_blank" class="neutral-lighten-3--text" style="text-decoration:none;font-size:14px;">CambalucClub</a>
+    </MRow>
+</MFooter>*@
+
+
+@code {
+    [Inject]
+    public NavigationManager Navigation { get; set; } = default!;
+
+    private bool _alert = false;
+    private string? message;
+    public void Login(MouseEventArgs args)
+    {
+        message = $"登录成功! ({args.ScreenX}:{args.ScreenY})";
+        _alert = true;
+        //Navigation.NavigateTo(Navigation.BaseUri);
+    }
+
+    public void Back(MouseEventArgs args)
+    {
+        Navigation.NavigateTo(Navigation.BaseUri);
+    }
+}
